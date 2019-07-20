@@ -9,6 +9,8 @@ module "ec2_default_instance_profile" {
   version               = "1.0.2"
   # source                = "github.com/StratusGrid/terraform-aws-ec2-instance-profile-builder"
   instance_profile_name = "${var.name_prefix}-default-ec2-instance-profile${local.name_suffix}"
+  log_bucket            = "${module.s3_bucket_logging.bucket_id}"
+  log_bucket_prefix     = "ssm/"
   input_tags            = "${merge(local.common_tags,
     map(
     )
@@ -23,8 +25,12 @@ module "ec2_default_instance_profile" {
   version                = "1.0.2"
   # source                 = "github.com/StratusGrid/terraform-aws-ec2-instance-profile-builder"
   instance_profile_name  = "${var.name_prefix}-default-ec2-instance-profile${local.name_suffix}"
+  log_bucket             = "${module.s3_bucket_logging.bucket_id}"
+  log_bucket_prefix      = "ssm/"
+
   add_custom_policy_json = true
   custom_policy_json     = "${data.aws_iam_policy_document.my_custom_instance_policy.json}"
+
   input_tags             = "${merge(local.common_tags,
     map(
     )

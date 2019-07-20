@@ -54,6 +54,17 @@ data "aws_iam_policy_document" "ssm" {
       "*",
     ]
   }
+  statement {
+    sid = "s3outputlogs"
+
+    actions = [
+      "s3:PutObject"
+    ]
+
+    resources = [
+      "arn:aws:s3:::${var.log_bucket}/${log_bucket_prefix}*",
+    ]
+  }
   # You would be able to add this for a single region this way, but IAM resources are global.
   # This would only be needed with S3 VPC Endpoints, which are unlikely to be used. If needed, add a static list of regions to support, or merge in the custom policy.
   # Reference: https://docs.aws.amazon.com/systems-manager/latest/userguide/setup-create-vpc.html

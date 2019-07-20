@@ -39,3 +39,15 @@ variable "custom_policy_json" {
   type        = "string"
   default     = ""
 }
+
+variable "log_bucket" {
+  description = "S3 Log bucket which SSM should be able to output document results. Required unless ssm_policy=false"
+  type        = "string"
+  default     = ""
+}
+
+variable "log_bucket_prefix" {
+  description = "Prefix which SSM should be allowed to write to in S3 Log Bucket. Defaults to ssm/, remove prefix by setting to empty double quotes"
+  type        = "string"
+  default     = "ssm/"
+}
